@@ -34,7 +34,7 @@ msgstr "Detalles de evento"
 #. module: event
 #: field:event.event,main_speaker_id:0
 msgid "Main Speaker"
-msgstr "Ponente principal"
+msgstr "Ente encargado"
 
 #. module: event
 #: view:event.event:0
@@ -342,7 +342,7 @@ msgstr "Varios"
 #: view:event.event:0
 #: field:event.event,speaker_ids:0
 msgid "Other Speakers"
-msgstr "Otros ponentes"
+msgstr "Entes participantes"
 
 #. module: event
 #: model:ir.model,name:event.model_event_make_invoice
@@ -680,7 +680,7 @@ msgstr "Mis eventos"
 #. module: event
 #: view:event.event:0
 msgid "Speakers"
-msgstr "Ponentes"
+msgstr "Entes"
 
 #. module: event
 #: view:event.make.invoice:0
@@ -1003,7 +1003,7 @@ msgstr "Precio unitario"
 #: field:report.event.registration,speaker_id:0
 #: field:res.partner,speaker:0
 msgid "Speaker"
-msgstr "Ponente"
+msgstr "Ente"
 
 #. module: event
 #: view:event.registration:0
@@ -1255,7 +1255,7 @@ msgstr "Introduzca el número mínimo de registros."
 #. module: event
 #: field:event.event,speaker_confirmed:0
 msgid "Speaker Confirmed"
-msgstr "Ponente confirmado"
+msgstr "Ente confirmado"
 
 #. module: event
 #: model:ir.actions.act_window,help:event.action_event_view

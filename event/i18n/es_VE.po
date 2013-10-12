@@ -371,7 +371,7 @@ msgstr "Enviar nuevo email"
 #. module: event
 #: view:event.event:0
 msgid "Location"
-msgstr "Ubicación"
+msgstr "Lugar del evento"
 
 #. module: event
 #: view:event.registration:0

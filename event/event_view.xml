@@ -104,12 +104,6 @@
                             <page string="Event Description">
                                 <field name="note" colspan="4" nolabel="1"/>
                             </page>
-                            <page string="Conclusiones">
-                                <field name="conclusiones" colspan="4" nolabel="1"/>
-                            </page>
-                            <page string="Acuerdos">
-                                <field name="acuerdos" colspan="4" nolabel="1"/>
-                            </page>
                             <page string="Registrations">
                                 <group>
                                     <group>
@@ -159,6 +153,13 @@
                                             </group>
                                     </form>
                                 </field>
+                            </page>
+                            <page string="Conclusiones">
+                                <field name="conclusiones" colspan="4" nolabel="1"/>
+                                <field name="file_upload"/>
+                            </page>
+                            <page string="Acuerdos">
+                                <field name="acuerdos" colspan="4" nolabel="1"/>
                             </page>
                             <page string="Email Configuration" groups="base.group_no_one">
                                 <group>

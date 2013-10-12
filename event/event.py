@@ -213,6 +213,7 @@ class event_event(osv.osv):
         'acuerdos': fields.text('Acuerdos', readonly=False, states={'done': [('readonly', True)]}),
         'company_id': fields.many2one('res.company', 'Company', required=False, change_default=True, readonly=False, states={'done': [('readonly', True)]}),
         'is_subscribed' : fields.function(_subscribe_fnc, type="boolean", string='Subscribed'),
+        'file_upload' : fields.binary('Imagenes'),
     }
     _defaults = {
         'state': 'draft',

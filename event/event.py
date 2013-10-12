@@ -209,6 +209,8 @@ class event_event(osv.osv):
         'country_id': fields.related('address_id', 'country_id',
                     type='many2one', relation='res.country', string='Country', readonly=False, states={'done': [('readonly', True)]}),
         'note': fields.text('Description', readonly=False, states={'done': [('readonly', True)]}),
+        'conclusiones': fields.text('Conclusiones', readonly=False, states={'done': [('readonly', True)]}),
+        'acuerdos': fields.text('Acuerdos', readonly=False, states={'done': [('readonly', True)]}),
         'company_id': fields.many2one('res.company', 'Company', required=False, change_default=True, readonly=False, states={'done': [('readonly', True)]}),
         'is_subscribed' : fields.function(_subscribe_fnc, type="boolean", string='Subscribed'),
     }

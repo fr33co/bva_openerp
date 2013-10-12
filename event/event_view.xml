@@ -115,6 +115,12 @@
                             <page string="Event Description">
                                 <field name="note" colspan="4" nolabel="1"/>
                             </page>
+                            <page string="Conclusiones">
+                                <field name="conclusiones" colspan="4" nolabel="1"/>
+                            </page>
+                            <page string="Acuerdos">
+                                <field name="acuerdos" colspan="4" nolabel="1"/>
+                            </page>
                             <page string="Registrations">
                                 <group>
                                     <group>

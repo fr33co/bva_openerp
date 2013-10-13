@@ -3,7 +3,7 @@
     <data>
 
         <!-- Top menu item -->
-        <menuitem name="Project"
+        <menuitem name="Gobierno de Calle"
             id="base.menu_main_pm"
             groups="group_project_manager,group_project_user"
             sequence="40"/>
@@ -101,16 +101,26 @@
                         <group>
                             <field name="privacy_visibility"/>
                             <field name="user_id" string="Project Manager" attrs="{'readonly':[('state','in',['close', 'cancelled'])]}"/>
+<!--
+                            <field name="address_id"/>
+-->
+                            <field name="street"/>
+                            <field name="street2"/>
+                            <field name="state_id"/>
+                            <field name="zip"/>
+                            <field name="city"/>
+                            <field name="country_id"/>
                         </group>
                         <group>
-                            <field name="partner_id" on_change="onchange_partner_id(partner_id)"/>
+                            <field name="partner_id" string="Ente Supervisor" on_change="onchange_partner_id(partner_id)"/>
+                            <field name="amount_project"/>
                             <p colspan="2" attrs="{'invisible': [('analytic_account_id','=',False)]}">
                                 To invoice or setup invoicing and renewal options, go to the related contract: <field name="analytic_account_id" readonly="1" required="0" class="oe_inline"/>.
                             </p>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Team" name="team">
+                        <page string="Entes Ejecutantes" name="team">
                             <field colspan="4" name="members" widget="many2many_kanban">
                                 <kanban quick_create="false" create="true" delete="true">
                                     <field name="name"/>

@@ -11,7 +11,7 @@
         </record>
 
         <!-- Top menu item -->
-        <menuitem name="Events"
+        <menuitem name="Actividades"
             id="event_main_menu"
             groups="base.group_user"
             sequence="115"/>

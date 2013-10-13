@@ -492,7 +492,7 @@ msgstr "_Cancelar"
 #: view:report.project.task.user:0
 #: field:report.project.task.user,partner_id:0
 msgid "Partner"
-msgstr "Empresa"
+msgstr "Ente Ejecutante"
 
 #. module: project
 #: constraint:account.analytic.account:0
@@ -1149,7 +1149,7 @@ msgstr "Configurar"
 #: view:project.project:0
 #: field:project.project,complete_name:0
 msgid "Project Name"
-msgstr "Nombre del proyecto"
+msgstr "Instrucción"
 
 #. module: project
 #: help:project.task.delegate,state:0

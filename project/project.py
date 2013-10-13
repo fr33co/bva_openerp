@@ -288,7 +288,16 @@ class project(osv.osv):
                                         help="The kind of document created when an email is received on this project's email alias"),
         'privacy_visibility': fields.selection(_visibility_selection, 'Privacy / Visibility', required=True),
         'state': fields.selection([('template', 'Template'),('draft','New'),('open','In Progress'), ('cancelled', 'Cancelled'),('pending','Pending'),('close','Closed')], 'Status', required=True,),
-        'doc_count':fields.function(_get_attached_docs, string="Number of documents attached", type='int')
+        'doc_count':fields.function(_get_attached_docs, string="Number of documents attached", type='int'),
+        #~ 'address_id': fields.many2one('res.partner','Location Address', readonly=False, states={'done': [('readonly', True)]}),
+        'street': fields.related('user_id','street',type='char',string='Direccion'),
+        'street2': fields.related('user_id','street2',type='char',string='Cont. Direccion'),
+        'state_id': fields.related('user_id','state_id',type='many2one', relation="res.country.state", string='Estado'),
+        'zip': fields.related('user_id','zip',type='char',string='Codigo Postal'),
+        'city': fields.related('user_id','city',type='char',string='Ciudad'),
+        'country_id': fields.related('user_id', 'country_id',
+                    type='many2one', relation='res.country', string='Pais', readonly=False, states={'done': [('readonly', True)]}),
+        'amount_project': fields.integer('Monto de la Inversion'),
      }
 
     def _get_type_common(self, cr, uid, context):

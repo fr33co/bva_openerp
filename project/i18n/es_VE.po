@@ -492,7 +492,7 @@ msgstr "_Cancelar"
 #: view:report.project.task.user:0
 #: field:report.project.task.user,partner_id:0
 msgid "Partner"
-msgstr "Ente Ejecutante"
+msgstr "Entes Ejecutantes"
 
 #. module: project
 #: constraint:account.analytic.account:0

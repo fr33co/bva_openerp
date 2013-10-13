@@ -178,6 +178,7 @@ class event_event(osv.osv):
         'user_id': fields.many2one('res.users', 'Responsible User', readonly=False, states={'done': [('readonly', True)]}),
         'type': fields.many2one('event.type', 'Type of Event', readonly=False, states={'done': [('readonly', True)]}),
         'amount_event': fields.integer('Monto de la Inversion', readonly=True, states={'draft': [('readonly', False)]}),
+        'qty_beneficiados': fields.integer('Cantidad de beneficiados', readonly=True, states={'draft': [('readonly', False)]}),
         'register_max': fields.integer('Maximum Registrations', help="You can for each event define a maximum registration level. If you have too much registrations you are not able to confirm your event. (put 0 to ignore this rule )", readonly=True, states={'draft': [('readonly', False)]}),
         'register_min': fields.integer('Minimum Registrations', help="You can for each event define a minimum registration level. If you do not enough registrations you are not able to confirm your event. (put 0 to ignore this rule )", readonly=True, states={'draft': [('readonly', False)]}),
         'register_current': fields.function(_get_register, string='Confirmed Registrations', multi='register_numbers'),

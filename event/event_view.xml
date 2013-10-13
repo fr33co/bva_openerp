@@ -97,6 +97,7 @@
                                 <field name="date_begin" on_change="onchange_start_date(date_begin,date_end)"/>
                                 <field name="date_end"/>
                                 <field name="amount_event"/>
+                                <field name="qty_beneficiados"/>
                                 <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                         </group>
@@ -194,6 +195,7 @@
                     <field name="date_begin"/>
                     <field name="date_end"/>
                     <field name="amount_event"/>
+                    <field name="qty_beneficiados"/>
                     <field name="register_current"/>
                     <field name="register_min"/>
                     <field name="register_max" invisible="1"/>

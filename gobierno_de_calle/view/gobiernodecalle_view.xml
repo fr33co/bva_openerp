@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+
+<!--
+SECTOR
+-->
+
+        <record model="ir.actions.act_window" id="sector_list_action">
+            <field name="name">Sectores</field>
+            <field name="res_model">gdc.sector</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Crear sectores</p>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="sector_view_form">
+            <field name="name">gdc.sector.form</field>
+            <field name="model">gdc.sector</field>
+            <field name="type">form</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <form string="Sector">
+                    <field name="name_sector" />
+                </form>
+            </field>
+        </record>
+
+<!--
+CARACTERIZACION
+-->
+
+        <record model="ir.actions.act_window" id="caracterizacion_list_action">
+            <field name="name">Caracterizacion</field>
+            <field name="res_model">gdc.caracterizacion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="caracterizacion_view_form">
+            <field name="name">gdc.caracterizacion.form</field>
+            <field name="model">gdc.caracterizacion</field>
+            <field name="type">form</field>
+            <field name="priority" eval="16"/>
+            <field name="arch" type="xml">
+                <form string="Ficha">
+                    <field name="ente"/>
+                    <field name="institucion_id"/>
+                    <field name="responsible_id"/>
+                    <field name="codigo"/>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="main_gobiernodecalle_menu" name="Gobierno de calle" />
+
+        <menuitem id="caracterizacion_menu" name="Caracterizacion institucional" parent="main_gobiernodecalle_menu" />
+        <menuitem id="ficha_menu" name="Ficha" parent="caracterizacion_menu" action="caracterizacion_list_action" />
+        
+    </data>
+</openerp>

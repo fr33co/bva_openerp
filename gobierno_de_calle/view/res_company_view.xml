@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="dependencia_add_form">
+            <field name="name">dependencia_add_form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="sector_id" />
+                    <field name="secretaria" />
+                    <field name="responsible_id" />
+                    <field name="dependencia_id" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

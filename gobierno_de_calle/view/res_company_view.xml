@@ -13,6 +13,10 @@
                     <field name="secretaria" />
                     <field name="responsible_id" />
                     <field name="dependencia_id" />
+                    <field name="num_empleados" />
+                </field>
+                <field name="email" position="after">
+                    <field name="twitter" />
                 </field>
             </field>
         </record>

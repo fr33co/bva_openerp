@@ -26,4 +26,6 @@ class gdc_sector(osv.Model):
             'secretaria': fields.boolean('Es una secretaria?'),
             'responsible_id' : fields.many2one('res.users', 'Responsable', required=True),
             'dependencia_id': fields.many2one('res.company', 'Dependencia', select=False),
+            'twitter': fields.char('Cuenta Twitter', size=34, required=True),
+            'num_empleados': fields.integer('Numero de Empleados', required=True),
     }

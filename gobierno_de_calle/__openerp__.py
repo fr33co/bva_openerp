@@ -28,5 +28,6 @@
     'data' : [
         'view/gobiernodecalle_view.xml',
         'view/res_company_view.xml',
+        'view/res_users_view.xml',
     ],
 }

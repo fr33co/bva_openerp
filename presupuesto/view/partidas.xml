@@ -2,7 +2,7 @@
 <openerp>
     <data>
         <record model="ir.actions.act_window" id="partidas_list_action">
-            <field name="name">Partidas Presupuestarias</field>
+            <field name="name">Actualizacion de Partidas Presupuestarias o Contables</field>
             <field name="res_model">presupuesto.partidas</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -10,7 +10,16 @@
                 <p class="oe_view_nocontent_create">Registrar Partidas Presupuestarias</p>
             </field>
         </record>
-
+        <record model="ir.ui.view" id="partidas_tree_view">
+            <field name="name">accion.tree</field>
+            <field name="model">presupuesto.partidas</field>
+            <field name="arch" type="xml">
+                <tree string="Actualizacion de Partidas Presupuestarias o Contables">
+                    <field name="codigo" />
+                    <field name="descripcion" />
+                </tree>
+            </field>
+        </record>
         <record model="ir.ui.view" id="estado_form_view">
             <field name="name">partidas.form</field>
             <field name="model">presupuesto.partidas</field>

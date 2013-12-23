@@ -28,7 +28,7 @@
                 <form string="Formulario de Proyectos">
                     <group colspan="2" col="2">
                         <separator string="Proyecto" colspan="2"/>
-                        <field name="codigo_proyecto"/>
+                        <field name="codigo_proyecto"  width="220"/>
                         <field name="proyecto" />
                         <field name="monto"/>
                         <field name="descripcion" />

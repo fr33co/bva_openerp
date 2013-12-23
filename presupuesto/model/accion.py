@@ -1,5 +1,5 @@
 from openerp.osv import osv, fields
-import random
+from openerp.tools.translate import _
 class Accion(osv.Model):
     _name = "presupuesto.accion"
 
@@ -7,6 +7,7 @@ class Accion(osv.Model):
 
     _columns = {
     'proyecto' : fields.many2one('presupuesto.proyecto','Proyecto',ondelete='cascade',required=True),
+    'distribucion_id' :fields.many2one('presupuesto.distribucion','Proyecto',ondelete='cascade',required=True),
     #'codigo_proyecto' : fields.char(string="Codigo del Proyecto",size=100, readonly=True),
     'codigo_accion' : fields.char(string="Codigo de Accion",size=11, required=True),
     #'codigo_a_p' : fields.char(string="Codigo",size=10, required=True),
@@ -17,13 +18,14 @@ class Accion(osv.Model):
     }
 
     def on_change_proyecto(self, cr, uid, ids, proyecto, context=None):
+        #raise osv.except_osv(('VENTANA DE ERROR'), ('ocurrio un Error' ) )
+
+
         values = {}
         if not proyecto:
             return values
         proyecto = self.pool.get('presupuesto.proyecto').browse(cr, uid, proyecto, context=context)
-        values.update({
-                'codigo_accion' : proyecto.codigo_proyecto+'-',
-        })
+        values.update({'codigo_accion' : proyecto.codigo_proyecto+'-',})
         return {'value' : values}
 
     def on_change_cod_accion(self, cr, uid, ids, valor, context=None):

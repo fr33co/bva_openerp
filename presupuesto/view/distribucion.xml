@@ -16,8 +16,11 @@
             <field name="model">presupuesto.distribucion</field>
             <field name="arch" type="xml">
                 <tree string="Distribucion de Presupuesto">
-                    <field name="codigo_accion"/>
-                    <field name="partida" />
+                    <field name="codigo_accion" string="Proyecto Accion"/>
+                    <field name="partida" string="Codigo Ppto"/>
+                    <field name="descripcion" string="Descripcion"/>
+                    <field name="monto_pre" string="Asignacion Original"/>
+                    <field name="fecha" string="Asignacion Original"/>
                 </tree>
             </field>
         </record>
@@ -31,24 +34,37 @@
                         <group colspan="4" col="4">
                             <separator string="Distribucion de Presupuesto" />
                         </group>
-                        <group colspan="4" col="4">
-                            <field name="proyecto"/>
+                        <group colspan="4">
+                            <field name="proyecto" placeholder="Seleccione..."/>
                         </group>
                         <group colspan="4" col="4">
-                            <field name="codigo_accion" colspan="2" width="110" />
-                            <field name="accion" colspan="2"  domain="[('proyecto','=',proyecto)]" on_change="on_change_accion(accion)"/>
+                            <field name="codigo_accion" colspan="2" width="100" attrs="{'readonly':[('accion','=',False)]}"/>
+                            <field name="accion" colspan="2" nolabel="1"  domain="[('proyecto','=',proyecto)]" on_change="on_change_accion(accion)"/>
                         </group>
                         <group colspan="4" col="4">
                             <field name="partida" colspan="2" width="110" on_change="on_change_partida(partida)"/>
-                            <field name="descripcion" colspan="2" />
+                            <field name="descripcion" colspan="2" nolabel="1" />
                         </group>
-                        <group colspan="2" col="2">
-                            <field name="monto_pre" colspan="2" width="200"/>
-                            <field name="aceptar"/>
-                            <field name="fecha"/>
-                            <field name="disponibilidad" width="110" readonly='1'/>
+                        <group colspan="4" col="4">
+                            <field name="monto_pre" colspan="2" digits="(14, 2)" width="200"/>
+                            <field name="aceptar" colspan="2" width="567" />
+                        </group>
+                        <group colspan="6" col="6">
+                            <field name="fecha" colspan="2"/>
+                            <field name="disponibilidad" colspan="2" width="200"/>
+                            <field name="monto_proyecto" colspan="2" />
                         </group>
                     </group>
+                    <!--<field name="incidencias_ids" nolabel="1" colspan="4" mode="tree" >
+                        <tree string="Incidencias"  colors="blue:usage=='view';darkred:usage=='internal'">
+                            <field name="monto"/>
+                        </tree>
+                   </field>-->
+                   <field name="incidencias_ids" mode="tree" nolabel="1" colspan="4">
+                    <tree string="Payment Details" editable="top">
+                        <field name="monto"/>
+                    </tree>
+                </field>
                 </form>
             </field>
         </record>

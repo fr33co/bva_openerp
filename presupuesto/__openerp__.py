@@ -1,7 +1,7 @@
 {
     "name": "Presupuesto",
         "version": "1.0",
-        "depends": ["base"],
+        "depends": ["base","web"],
         "author": "Josue",
         "category": "Category",
         "description": """\
@@ -13,8 +13,8 @@
         'view/distribucion.xml',
         'view/partidas.xml',
         ],
-        'web':True,
-        'css': ['static/src/css/estilo.css'],
-        'js': ['static/src/js/prueba.js'],
+       'js': ['static/src/js/lib.js'],
+       'css': ['static/src/css/color.css'],
+       #'qweb': ['static/src/xml/web_example.xml'],
 }
 

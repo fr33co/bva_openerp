@@ -223,10 +223,10 @@ class gdc_tareas(osv.Model):
         gdc_project = self.pool.get('gdc.proyectos')
         records = self.browse(cr, uid, ids, context=context)
         for r in records:
-			gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['supervisor_id'], context)
-			if gdc_project_src['supervisor_id']:
-				self.write(cr, uid, ids, {'supervisor_id': gdc_project_src['supervisor_id'][0]})
-			return res
+            gdc_project_src = gdc_project.read(cr, uid, r.project_id2.id, ['supervisor_id'], context)
+            if gdc_project_src['supervisor_id']:
+                self.write(cr, uid, ids, {'supervisor_id': gdc_project_src['supervisor_id'][0]})
+            return res
             
     def onchange_date_start_tarea(self, cr, uid, ids, date_start_tarea, context=None):
         res = {}

@@ -27,6 +27,7 @@
                 <form string="Formulario de Partidas Presupuestarias" version="7.0">
                     <group colspan="2" col="2">
                         <separator string="Partidas Presupuestarias" colspan="2"/>
+                        <field name="id_partida"/>
                         <field name="codigo"/>
                         <field name="descripcion" />
                     </group>

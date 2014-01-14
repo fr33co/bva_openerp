@@ -29,10 +29,10 @@
                 <form string="Formulario de Documentos" version="7.0">
                     <group colspan="2" col="2">
                         <separator string="Documentos" colspan="2"/>
-                        <field name="id_documento" readonly="1"/>
+                        <field name="id_documento" readonly="1" class="oe_readonly"/>
                         <field name="siglas"/>
                         <field name="documento" />
-                         <field name="tipo" />
+                        <field name="tipo" />
                     </group>
                 </form>
             </field>

@@ -3,7 +3,7 @@ import random
 class Documento(osv.Model):
     _name = "presupuesto.documento"
 
-    _order='id_documento'
+    _order='id_documento desc'
     _rec_name='documento'
 
     _columns = {
@@ -16,10 +16,11 @@ class Documento(osv.Model):
     def _get_last_id(self, cr, uid, ids, context = None):
 
         sfl_id       = self.pool.get('presupuesto.documento')
-        srch_id      = sfl_id.search(cr,uid,[])
-        rd_id        = sfl_id.read(cr, uid, srch_id, context=context)
+        srch_id      = sfl_id.search(cr,uid,[],offset=0,limit=1,order='id_documento desc',count=True)
+        rd_id        = sfl_id.read(cr, uid, srch_id,['id_documento'], context=context)
+        
         if rd_id:
-            id_documento = rd_id[-1]['id_documento']
+            id_documento = rd_id['id_documento']
             last_id      = id_documento.lstrip('0')
             str_number   = str(int(last_id) + 1)
             last_id      = str_number.rjust(6,'0')

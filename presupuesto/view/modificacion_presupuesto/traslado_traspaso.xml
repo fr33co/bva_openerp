@@ -14,14 +14,14 @@
             <field name="name">traslado.tree</field>
             <field name="model">presupuesto.traslado</field>
             <field name="arch" type="xml">
-                <tree string="Traslado/Traspaso">
+                <tree string="Traslado/Traspaso" colors="blue:aumentar&gt;0;red:disminuir&gt;0">
                     <field name="tipo_doc"/>
                     <field name="numero"/>
                     <field name="categoria"/>
                     <field name="cod_presupuesto"/>
                     <field name="motivo"/>
-                    <field name="aumen_dism"/>
-                    <field name="aumen_dism"/>
+                    <field name="aumentar" string="Aumento"  />
+                    <field name="disminuir"  string="Disminucion"  />
                 </tree>
             </field>
         </record>
@@ -31,9 +31,9 @@
             <field name="arch" type="xml">
                 <form string="Formulario de Traslado/Traspaso" version="7.0">
                     <group colspan="6" col="6">
-                        <separator string="Traslado/Traspaso" colspan="6"/>
+                        <separator string="Traslado/Traspaso" colspan="6" />
                         <field name="tipo_doc" colspan="2" width="100" on_change="get_last_numero(tipo_doc)"/>
-                        <field name="numero"   colspan="2" width="100"/>
+                        <field name="numero"   colspan="2" width="100" on_change="on_change_get_row(numero,tipo_doc)"/>
                         <field name="fecha"    colspan="2" width="220"/>
                     </group>
                     <group colspan="6" col="6">
@@ -41,16 +41,16 @@
                         <field name="fecha_resolucion" colspan="2" width="100"/>
                         <field name="motivo"           colspan="2" width="220"/>
                     </group>
-                     <group colspan="6" col="6">
-                        <field name="categoria"          colspan="2" width="100"/>
-                        <field name="consulta_categoria" colspan="2" width="100"/>
-                        <field name="cod_presupuesto"    colspan="2" width="220"/>
+                     <group colspan="8" col="8">
+                        <field name="categoria"          colspan="2" width="150" on_change="on_change_accion(categoria,'cod_accion')"/>
+                        <field name="consulta_categoria" colspan="2" width="150" on_change="on_change_accion(consulta_categoria,'accion')"/>
+                        <field name="cod_presupuesto"    colspan="2" width="100" on_change="on_change_partida(cod_presupuesto)"/>
+                        <field name="par_presu"          colspan="2" width="220" nolabel="1" />
                     </group>
-                    <group colspan="8" col="8">
-                        <field name="monto_movi"     colspan="2" width="100"/>
-                        <field name="monto_movi1"    colspan="2" width="50" nolabel="1" readonly="1"/>
-                        <field name="aumen_dism"     colspan="2" width="50" nolabel="1"/>
-                        <field name="disponibilidad" colspan="2" width="275" readonly="1"/>
+                    <group colspan="6" col="6">
+                        <field name="aumen_dism"  colspan="2" width="200" class="oe_inline" />
+                        <field name="aumentar"      colspan="2" attrs="{'invisible':[('aumen_dism','=','disminuye')]}"   />
+                        <field name="disminuir"       colspan="2" attrs="{'invisible':[('aumen_dism','in',('aumento',False))]}"    />
                     </group>
                 </form>
             </field>

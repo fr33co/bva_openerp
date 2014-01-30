@@ -18,11 +18,14 @@
 				<field name="identification_id" position="replace">
 					<field name="cedula"/>
 				</field>
+				<field name="cedula" position="before">
+					<field name="grupo" invisible="0"/>
+				</field>
 				<field name="passport_id" position="after">
 					<field name="tiempo_servicio"/>
 				</field>
 				<field name="tiempo_servicio" position="after">
-					<field name="empleado"/>
+					<field name="empleado" groups="desarrollo_social.grupo_desarrollo_social1"/>
 				</field>
 				<field name="empleado" position="after">
 					<field name="tipo_beca"/>
@@ -122,10 +125,10 @@
 					<field name="zapato" class="oe_inline"/>
 				</field>
 				<field name="zapato" position="after">
-					<field name="caja_ahorro" class="oe_inline" groups="base.group_hr_manager"/>
+					<field name="caja_ahorro" class="oe_inline" attrs="{'invisible': [('estado_de_estudios', '!=', True) ] }"/>
 				</field>
 				<field name="caja_ahorro" position="after">
-					<field name="prima_responsabilidad" class="oe_inline" groups="base.group_hr_manager"/>
+					<field name="prima_responsabilidad" class="oe_inline" attrs="{'invisible': [('estado_de_estudios', '!=', True) ] }"/>
 				</field>
 				<field name="direccion" position="after">
 					<field name="cne"/>

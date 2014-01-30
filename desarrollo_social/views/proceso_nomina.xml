@@ -3,25 +3,24 @@
     <data>
     
 			<record model="ir.actions.act_window" id="accion_vista_proceso_nomina">
-					<field name="name">Procesamiento de Nómina</field>
-					<field name="res_model">hr.payslip.run</field>
-					<field name="view_type">form</field>
-					<field name="view_mode">tree,form</field>
+				<field name="name">Procesamiento de Nómina</field>
+				<field name="res_model">hr.payslip.run</field>
+				<field name="view_type">form</field>
+				<field name="view_mode">tree,form</field>
 			</record>
     
-		<record id="vista_proceso_nomina" model="ir.ui.view">
-					<field name="name">Nomina</field>
-					<field name="model">hr.payslip.run</field>
-					<field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
-					<field name="arch" type="xml">
-						<field name="credit_note" position="before">
-							<h2><field name="fecha" class="oe_inline"/></h2>
-						</field>
+			<record id="vista_proceso_nomina" model="ir.ui.view">
+				<field name="name">Nomina</field>
+				<field name="model">hr.payslip.run</field>
+				<field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+				<field name="arch" type="xml">
+					<field name="credit_note" position="before">
+						<h2><field name="fecha" class="oe_inline"/></h2>
 					</field>
-			</record>
-        
+				</field>
+			</record> 
 
-        <menuitem parent="menu_desarrollo_social_nomina" id="proceso_nomina" action="accion_vista_proceso_nomina" name="Procesamientos de nóminas"/>
+			<menuitem parent="menu_desarrollo_social_nomina" id="proceso_nomina" action="accion_vista_proceso_nomina" name="Procesamientos de nóminas"/>
         
     </data>
 </openerp>

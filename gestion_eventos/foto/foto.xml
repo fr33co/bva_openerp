@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <report id="reporte_foto" string="Foto del Evento"
+            model="gestion.eventos" name="Foto del Evento"
+            rml="gestion_eventos/foto/foto.rml" />
+    </data>
+</openerp>
+

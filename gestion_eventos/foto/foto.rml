@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<document filename="test.pdf">
+  <template pageSize="(595.0,842.0)" title="Test" author="Martin Simon" allowSplitting="20">
+    <pageTemplate id="first">
+      <frame id="first" x1="57.0" y1="57.0" width="481" height="728"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+
+    <blockTableStyle id="estilo">
+		<lineStyle kind="GRID" colorName="#FFFFFF" thickness="0" start="0,0" stop="-1,-1" />
+		<blockBackground colorName="#B20D17" start="0,0" stop="-1,0"/>
+	</blockTableStyle>
+	
+	<blockTableStyle id="estilo_2">
+		<lineStyle kind="GRID" colorName="#4D4D4D" thickness="0" start="0,0" stop="-1,-1" />
+	</blockTableStyle>
+    <paraStyle name="P1" alignment="JUSTIFY" fontName="Arial" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="P2" fontName="Helvetica-Bold" alignment="CENTER" fontSize="9.0" leading="10" spaceBefore="0.0" spaceAfter="0.0" textColor="#FFFFFF"/>
+  </stylesheet>
+  <story>
+	  
+    <para style="Standard">[[ repeatIn(objects,'e') ]]</para>
+    <illustration height="1.0" width="140.0">
+      <image x="-6" y="-2" file="../img/logo_bva.png" height="600.0" width="530.0"/>
+    </illustration>
+
+    <blockTable colWidths="528" style="estilo">
+		<tr>
+			<td>
+				<para style="P2">
+				DIRECCIÓN DEL EVENTO
+				</para>
+			</td>
+		</tr>
+	</blockTable>
+	
+	<blockTable style="estilo_2">
+		<tr>
+			<td>
+				<para style="P1">
+				Municipio:   [[ e.municipio.name ]]
+				</para>
+			</td>
+			<td>Parroquia:   [[ e.parroquia.name ]]</td>
+		</tr>
+	</blockTable>
+	<blockTable style="estilo_2">
+		<tr>
+			<td>
+				<para style="P1">
+				Dirección:   [[ e.direccion ]]
+				</para>
+			</td>
+		</tr>
+	</blockTable>
+	<para style="P1">
+      <font color="white"> </font>
+    </para>
+    <blockTable colWidths="528" style="estilo">
+		<tr>
+			<td>
+				<para style="P2">
+					CARACTERÍSTICA DEL EVENTO
+				</para>
+			</td>
+		</tr>
+	</blockTable>
+	<blockTable colWidths="427.0,100.0" style="estilo_2">
+		<tr>
+			<td>
+				<para style="P1">
+				Actividad:
+				</para>
+			</td>
+			
+			<td>Participantes:   [[ e.participantes ]]</td>
+		</tr>
+	</blockTable>
+	<blockTable style="estilo_2">
+		<tr>
+			<td>
+				<para style="P1">
+				[[ e.actividad ]]
+				</para>
+			</td>
+		</tr>
+	</blockTable>
+	<blockTable colWidths="317.0,210.0" style="estilo_2">
+		<tr>
+			<td>
+				<para style="P1">
+				Institución / Gerencia:   [[e.institucion.name]]
+				</para>
+			</td>
+			
+			<td>Responsable:   [[ e.responsable ]]</td>
+		</tr>
+	</blockTable>
+	<para style="P1">
+      <font color="white"> </font>
+    </para>
+	<blockTable colWidths="528" style="estilo">
+		<tr>
+			<td>
+				<para style="P2">
+					OBSERVACIONES DEL EVENTO
+				</para>
+			</td>
+		</tr>
+	</blockTable>
+	<blockTable style="estilo_2">
+		<tr>
+			<td>
+				<para style="P1">
+					[[ e.direccion ]]
+				</para>
+			</td>
+		</tr>
+	</blockTable>
+	<para style="P1">
+      <font color="white"> </font>
+    </para>
+	<blockTable colWidths="528" style="estilo">
+		<tr>
+			<td>
+				<para style="P2">
+					FOTOS ADJUNTAS
+				</para>
+			</td>
+		</tr>
+	</blockTable>
+	<blockTable colWidths="175.0,176.0,175.0" style="estilo_2">
+		<tr>
+			<td>
+				<image width="165" height="195">[[ e.foto_1 or removeParentNode('image') ]]</image>
+			</td>
+			
+			<td>
+				<image width="165" height="195">[[ e.foto_2 or removeParentNode('image') ]]</image>
+			</td>
+			<td>
+				<image width="165" height="195">[[ e.foto_3 or removeParentNode('image') ]]</image>
+			</td>
+		</tr>
+	</blockTable>
+  </story>
+</document>

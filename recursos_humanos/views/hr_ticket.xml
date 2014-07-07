@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+			<record model="ir.actions.act_window" id="action_ticket">
+					<field name="name">Nómina de Cesta Ticket</field>
+					<field name="res_model">hr.ticket</field>
+					<field name="view_type">form</field>
+					<field name="view_mode">tree,form</field>
+			</record>
+    
+			<record id="view_ticket" model="ir.ui.view">
+				<field name="name">Nómina de Cesta Ticket</field>
+				<field name="model">hr.ticket</field>
+				<field name="arch" type="xml">
+					<form string="Formulario de Nómina de Cesta Ticket" version="7.0">
+						<header>
+							<field name="status" widget="statusbar" statusbar_colors='{"progress":"red"}'/>
+						</header>
+							<center>
+								<table style="width:900px;" border="0">
+									<tr>
+										<td colspan="6" style="text-align:center;" class="oe_horizontal_separator">
+											<b>Nómina de Alimentación</b>
+										</td>
+									</tr>
+									<tr>
+										<td style="align:center;">
+											<b>Cédula</b>
+										</td>
+										<td>
+											<field name="cedula" style="width:100%%"/>
+										</td>
+										<td style="align:center;">
+											<b>Nombres y Apellidos</b>
+										</td>
+										<td>
+											<field name="nombres"/>
+										</td>
+										<td style="align:center;">
+											<b>Fecha de Ingreso</b>
+										</td>
+										<td>
+											<field name="fecha_ingreso"/>
+										</td>
+									</tr>
+									
+									<tr>
+										<td style="align:center;">
+											<b>Ticket</b>
+										</td>
+										<td>
+											<field name="ticket"/>
+										</td>
+										<td style="align:center;">
+											<b>Monto / Ticket</b>
+										</td>
+										<td>
+											<field name="monto"/>
+										</td>
+										<td style="align:center;">
+											<b>Monto a Pagar</b>
+										</td>
+										<td>
+											<field name="monto_p" style="50%%"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<b>Tipo / Recarga</b>
+										</td>
+										<td>
+											<field name="tipo_recarga" readonly="1"/>
+										</td>
+										<td>
+											<b>Personal</b>
+										</td>
+										<td>
+											<field name="class_personal" widget="selection" readonly="1"/>
+										</td>
+									</tr>
+
+								</table>
+							</center>
+					</form>
+					
+				</field>
+			</record>
+
+			<!-- Forma de Busqueda para Nomina de Alimentacion-->
+			<record model="ir.ui.view" id="search_ticket">
+				<field name="name">Nómina de Cesta Ticket.search</field>
+				<field name="model">hr.ticket</field>
+				<field name="arch" type="xml">
+					<search string="Busqueda de gestión de >Eventos">
+						<filter name="cedula" domain="[('cedula','=', uid)]" string="Busqueda de Nomina de Alimentación" icon="terp-partner" />
+						<field name="cedula" />
+						<field name="nombres"/>
+						<field name="fecha_ingreso"/>
+						<field name="monto"/>
+						<field name="ticket"/>
+						<field name="monto_p"/>
+						<field name="tipo_recarga"/>
+						<field name="status"/>
+					</search>
+				</field>
+			</record>
+
+			<!--Vista tree Nomina de Alimentacion-->
+			<record model="ir.ui.view" id="ticket_tree">
+				<field name="name">Nómina de Cesta Ticket.tree</field>
+				<field name="model">hr.ticket</field>
+				<field name="arch" type="xml">
+					<tree string="Lista de Nomina de Alimentación" colors="#0A9134:status=='1';#F2081C:status=='5';#000000:status=='7';#0000FF:status=='3';#855C11:status=='6'" version="7.0" editable="button">
+						<field name="cedula" />
+						<field name="nombres"/>
+						<field name="class_personal"/>
+						<field name="fecha_ingreso"/>
+						<field name="monto"/>
+						<field name="ticket"/>
+						<field name="monto_p"/>
+						<field name="tipo_recarga"/>
+						<field name="status"/>
+					</tree>
+				</field>
+			</record>
+
+        <menuitem parent="recursos_humanos_main" id="menu_ticket" action="action_ticket" name="Nómina de Alimentación" sequence="3"/>
+        
+    </data>
+</openerp>

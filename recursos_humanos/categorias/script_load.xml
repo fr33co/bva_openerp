@@ -473,7 +473,18 @@
 <!--===================================================================-->
                         <!-- Filtro para domain -->
 <!--===================================================================-->
-
+            
+            <!--COMENTAR CUANDO SE REALIZE LA SUBIDA AL SERVIDOR-->
+            
+            <record id="domain_6" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">hr.employee</field>
+                <field name="domain">[('categoria','=','2'),('status','=','1')]</field> <!--Filtro por categoria y estatus-->
+                <field name="user_id">1</field>
+                <field name="name">Recursos Humanos</field>
+                <field name="context">{}</field>
+            </record>
+            
             <record id="domain_2" model="ir.filters">
                 <field name="is_default">TRUE</field>
                 <field name="model_id">hr.employee</field>

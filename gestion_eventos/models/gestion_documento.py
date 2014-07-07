@@ -170,7 +170,7 @@ class ir_documento(osv.Model):
         'store_fname': fields.char('Archivo', size=256),
         'db_datas': fields.binary('Data'),
         'file_size': fields.integer('Espacio'),
-        'item': fields.selection([('todos','Todos'),('asc','Asendente'),('desc','Decendente'),('fechas','Fechas')], string="Mostrar en Forma", required=True),
+        'item': fields.selection([('todos','Todos'),('asc','Asendente'),('desc','Decendente'),('fechas','Fechas'),('foto','Foto'),('departamento','Departamento')], string="Mostrar en Forma", required=True),
     }
 
     _defaults = {

@@ -11,13 +11,12 @@
       Generación de Reportes
 			Generación de Nóminas'
       Generación de archivos TXT
-      Ultima Actualización: 09 de Junio del 2014''',
+      Ultima Actualización: 07 de Julio del 2014''',
     'data' : [
       "views/empleado.xml",
       #"views/seguridad_salud_laboral.xml",
-      # 'categorias/groups.xml',
       'categorias/script_load.xml',
-      'categorias/script_concepts.xml', #Scrit para concentos
+      'categorias/script_concepts.xml', #Script para conceptos
       'categorias/data_partida.xml', #Script para la carga de partidas
       "views/nomina.xml", # nómina
       "views/proceso_nomina.xml", # Procesos de nóminas
@@ -41,16 +40,12 @@
       "views/asignacion_nomina_vacaciones.xml", # Nomina vacaciones
       "views/configuracion_asignacion.xml",
       "views/propietario.xml",
-
-      # "views/tipoNomina.xml",
+      "views/hr_ticket.xml",
+      "views/hr_asig_alimentacion.xml",
       "views/carga_familiar_employee.xml",
-
+      
       "categorias/groups.xml", #Activar la carga de este archivo sólo al instalar, luego comentarlo.
-      #"script/departamentos.xml",
-      #"segurity/acceso.csv", # PRIVILEGIOS PARA LOS MODELOS
-      # "segurity/ir.view.access.csv", # PRIVILEGIOS PARA LAS VISTAS
-      #"reportes/constancia/constancia.xml", # Reporte para la emisión de constancia
-      #"reportes/candidato/candidato.xml", # Reporte para la emisión de candidato
+      "segurity/ir.model.access.csv", # PRIVILEGIOS PARA LOS MODELOS
     ],
     'css': [ 'static/src/css/style.css' ],
 }

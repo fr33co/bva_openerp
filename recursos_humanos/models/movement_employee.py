@@ -14,8 +14,7 @@ class Movement_employee_payslip(osv.Model):
 	
 	_order = 'cedula' # Ordenamos por cedula del empleado
 	_order = 'nomina_admin' # Ordenamos por nominas
-
-	_rec_name = 'cedula'
+	_rec_name = 'nombres'
 	##################################################################################################################
 	#
 	##################################################################################################################
@@ -59,45 +58,45 @@ class Movement_employee_payslip(osv.Model):
 					can  = int(cantidad_h)
 					operador_1 = (sm/dias*0.12)*can
 					print "CALCULO CONCEPTO 456: "+str(operador_1)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_1)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_1))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 				if str(e['cod']) == "101": # Procesar calcular de nuevo el concepto 101
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_2 = ((sm/dias)*can)
 					print "CALCULO CONCEPTO 101: "+str(operador_2)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_2)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_2))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 				
 				if str(e['cod']) == "102": # Procesar calcular de nuevo el concepto 101
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_102 = ((sm/dias)*can)
 					print "CALCULO CONCEPTO 102: "+str(operador_102)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_102)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_102))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 				
 				if str(e['cod']) == "008": # Procesar calcular de nuevo el concepto 008
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_3 = ((sm/dias)*can)
 					print "CALCULO CONCEPTO 008: "+str(operador_3)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_3)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_3))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 				if str(e['cod']) == "009": # Procesar calcular de nuevo el concepto 009
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_4 = ((sm/dias)*can)
 					print "CALCULO CONCEPTO 009: "+str(operador_4)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_4)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_4))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 				if str(e['cod']) == "103": # Procesar calcular de nuevo el concepto 103
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_5 = ((sm/dias)*can)
 					print "CALCULO CONCEPTO 103: "+str(operador_5)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_5)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_5))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 				if str(e['cod']) == "125": # Procesar calcular de nuevo el concepto 125
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_6 = ((sm/dias)*can)
 					print "CALCULO CONCEPTO 125: "+str(operador_6)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_6)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_6))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 				if str(e['cod']) == "116": # Procecar calcular de nuevo el concepto 116
 					fecha = fecha_in.split("-")
 
@@ -135,7 +134,7 @@ class Movement_employee_payslip(osv.Model):
 					monto      = float(sm)
 					can        = ""
 					operador_7   = monto * porcentaje # Concepto 116 Prima de Antiguedad
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_7)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_7))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 					print "CALCULO CONCEPTO 116: "+str(operador_7)
 				
 				if str(e['cod']) == "134": # Procesar calcular de nuevo el concepto 134
@@ -143,84 +142,85 @@ class Movement_employee_payslip(osv.Model):
 					can  = int(cantidad_h)
 					operador_8 = ((sm/dias)*can)
 					print "CALCULO CONCEPTO 134: "+str(operador_8)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_8)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_8))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 				
 				if str(e['cod']) == "148": # Procesar calcular de nuevo el concepto 148
 					dias = int(cantidad_d)
-					can  = int(cantidad_h)
-					operador_9 = ((sm/dias)*can)
+					# can  = int(cantidad_h)
+					operador_9 = ((sm/dias)*float(1.5))
 					print "CALCULO CONCEPTO 148: "+str(operador_9)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_9)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_9))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 				
 				if str(e['cod']) == "183": # Procesar calcular de nuevo el concepto 183
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_10 = float(sm)/int(dias)*1*int(can)
 					print "CALCULO CONCEPTO 183: "+str(operador_10)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_10)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_10))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 
 				if str(e['cod']) == "143": # Procesar calcular de nuevo el concepto 148
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_11 = ((sm/dias)*can)
 					print "CALCULO CONCEPTO 143: "+str(operador_11)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_11)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_11))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 
 				if str(e['cod']) == "149": # Procesar calcular de nuevo el concepto 149
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_12 = ((sm/dias/int(7))*0.3)*can
+					result      = redondear(operador_12)
 					print "CALCULO CONCEPTO 149: "+str(operador_12)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_12)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")	
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(result)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")	
 				
 				if str(e['cod']) == "150": # Procesar calcular de nuevo el concepto 150
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_13 = ((sm/dias/int(8))*1.5)*can
 					print "CALCULO CONCEPTO 150: "+str(operador_13)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_13)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_13))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 
 				if str(e['cod']) == "151": # Procesar calcular de nuevo el concepto 151
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_15 = ((sm/dias/int(7))*1.95)*can
 					print "CALCULO CONCEPTO 151: "+str(operador_15)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_15)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_15))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 
 				if str(e['cod']) == "184": # Procesar calcular de nuevo el concepto 184
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_14 = float(sm)/int(dias)*1*int(can)
 					print "CALCULO CONCEPTO 184: "+str(operador_14)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_14)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_14))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 
 				if str(e['cod']) == "456": # Procesar calcular de nuevo el concepto 456
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_16 = (sm/dias*0.12)*can
 					print "CALCULO CONCEPTO 456: "+str(operador_16)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_16)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")	
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_16))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")	
 
 				if str(e['cod']) == "102": # Procesar calcular de nuevo el concepto 102
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_17 = ((sm/dias)*can)
 					print "CALCULO CONCEPTO 102: "+str(operador_17)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_17)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_17))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 
 				if str(e['cod']) == "182": # Procesar calcular de nuevo el concepto 182
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_18 = (sm/dias*0.04)*can
 					print "CALCULO CONCEPTO 182: "+str(operador_18)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_18)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_18))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 
 				if str(e['cod']) == "462": # Procesar calcular de nuevo el concepto 462
 					dias = int(cantidad_d)
 					can  = int(cantidad_h)
 					operador_19 = (sm/dias*0.12)*can
 					print "CALCULO CONCEPTO 462: "+str(operador_19)
-					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(operador_19)+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
+					cr.execute("UPDATE hr_movement_payslip SET asignacion='"+str(redondear(operador_19))+"' WHERE cod='"+str(cod)+"' AND asig_deduc='"+str(filtro_id)+"';")
 
 				if str(e['cod']) == "502": # Procesar calcular de nuevo el concepto 502
 					dias = int(cantidad_d)
@@ -243,7 +243,6 @@ class Movement_employee_payslip(osv.Model):
 
 					sum_incidencias = 0
 					for i in employee_cod:
-						cod = i['cod']
 						sum_incidencias += float(i['asignacion']) # Sumatoria de los conceptos que tengan incidencias salariales
 						result_incidencia = (float(sum_incidencias))*0.01 # Formula del concepto (590)s F.A.O.V Monto para fraccion de quincena
 					monto = result_incidencia # Resultado de la operacion
@@ -428,13 +427,14 @@ class Movement_employee_payslip(osv.Model):
 			search_obj_code1 = obj_dp.search(cr, uid, [('id','=',movement_id),('filtro','=','1')])
 			calculos1 = obj_dp.read(cr,uid,search_obj_code1,context=context)
 			asignacion = 0
-			deduccion  = 0
+			
 			for x in calculos1:
 
 				asignacion += float(x['asignacion'])
 
 			search_obj_code2 = obj_dp.search(cr, uid, [('id','=',movement_id),('filtro','=','2')])
 			calculos2 = obj_dp.read(cr,uid,search_obj_code2,context=context)
+			deduccion  = 0
 			for x in calculos2:
 				deduccion += float(x['deduccion'])
 
@@ -733,7 +733,7 @@ class Movement_employee_payslip(osv.Model):
 												nomina      = x.nomina_admin.id
 												self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro,nomina,context)
 									else:
-										#print "SOY LOS CONCEPTOS DEL 303 AL 306"
+										print "SOY LOS CONCEPTOS DEL 303 AL 306"
 										asig  = float(operador)
 										
 										deduccion  = ""
@@ -1070,23 +1070,23 @@ class Movement_employee_payslip(osv.Model):
 
 						operador   = sm/int(x.cant_dias)*1.5 # Concepto 148, Domingo y feriados laborados
 						frecuencia = ""
-						asignacion = ""
+						deduccion = ""
 
 						if int(x.frecuencia) == 1:
 							frecuencia = "F"
 						elif int(x.frecuencia) == 2:
 							frecuencia = "E"
 
-						# Se registra el concepto 502
+						# Se registra el concepto 148
 
 						cedula      = x.cedula
 						cod         = x.codigo
 						frecuencia  = frecuencia
 						descripcion =  x.consulta.concepto
 						cantidad    = ""
-						asignacion  = asignacion
-						deduc       = float(operador)
-						deduccion   = "%.2f" % round(deduc,2)
+						deduccion   = deduccion
+						asig       = float(operador)
+						asignacion   = "%.2f" % round(asig,2)
 						asig_deduc  =  x.id
 						filtro      = "2"
 						nomina      = x.nomina_admin.id
@@ -1162,8 +1162,6 @@ class Movement_employee_payslip(osv.Model):
 					
 					self.write(cr, uid, ids, {'codigo': '','consulta':'','frecuencia':'','formula':'','cant_dias':'','cant_horas':'','monto':'','filtro':'1'}, context=context) # Reseteo los valores a vacio
 				else:
-					if not data_asig_deduc['monto']:
-						raise osv.except_osv(_("Warning!"), _("Disculpe debe ingresar el monto..."))
 					for y in employee:
 						familiar_id = y['familiar'] # Grupo de id de los familiares del empleado
 						
@@ -1174,35 +1172,35 @@ class Movement_employee_payslip(osv.Model):
 					if not carga:
 						raise osv.except_osv(_("Warning!"), _("Disculpe actualmente no dispone hijos como carga familiar..."))
 					else:
-						if int(familiar) == 1:
-							monto = x.monto * 1 # Formulacion del concepto 181 Prima por hijo
-						elif int(familiar) == 2:
-							monto = x.monto * 2 # Formulacion del concepto 181 Prima por hijo
-						elif int(familiar) == 3:
-							monto = x.monto * 3 # Formulacion del concepto 181 Prima por hijo
-						if int(familiar) > 3:
-							raise osv.except_osv(_("Warning!"), _("Disculpe solo se permiten (3) hijos como maximo, intente de nuevo..."))
-						
-						operador   = monto # Salida de los resultados del monto a pagar (181)
-						frecuencia = ""
-						deduccion  = ""
-						if int(x.frecuencia) == 1:
-							frecuencia = "F"
-						elif int(x.frecuencia) == 2:
-							frecuencia = "E"
-						cedula      = x.cedula
-						cod         = x.codigo
-						frecuencia  = frecuencia
-						descripcion =  x.consulta.concepto
-						cantidad    = ""
-						asig_deduc  =  x.id
-						
-						asig        = float(operador)
-						asignacion  = "%.2f" % round(asig,2)
-						filtro      = "1"
-						nomina      = x.nomina_admin.id
-						# Salida de los datos al modelo movimientos (hr.movement.payslip)
-						self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro,nomina,context)
+						monto = 0
+						for c in carga:
+							monto += int(c['mount_hijo'])
+							valor = monto
+
+						if int(valor) == 0:
+							raise osv.except_osv(_("Warning!"), _("Disculpe actualmente no dispone Prima por Hijos, intente de nuevo, o Contacte al Administrador del sitio..."))
+						else:
+							
+							operador   = valor # Salida de los resultados del monto a pagar (181)
+							frecuencia = ""
+							deduccion  = ""
+							if int(x.frecuencia) == 1:
+								frecuencia = "F"
+							elif int(x.frecuencia) == 2:
+								frecuencia = "E"
+							cedula      = x.cedula
+							cod         = x.codigo
+							frecuencia  = frecuencia
+							descripcion =  x.consulta.concepto
+							cantidad    = ""
+							asig_deduc  =  x.id
+							
+							asig        = float(operador)
+							asignacion  = "%.2f" % round(asig,2)
+							filtro      = "1"
+							nomina      = x.nomina_admin.id
+							# Salida de los datos al modelo movimientos (hr.movement.payslip)
+							self.save_concepts(cr,uid,ids,cedula,cod,frecuencia,descripcion,cantidad,asignacion,deduccion,asig_deduc,filtro,nomina,context)
 
 			#########################################################################################
 			elif str(x.codigo) == "590": # Concepto F.A.O.V (590)
@@ -1322,7 +1320,7 @@ class Movement_employee_payslip(osv.Model):
 							if int(dia_actual) < 16:
 								raise osv.except_osv(_("Warning!"), _("Disculpe el bono vacacional es asignado mensualmente..."))
 							else:
-								sm   = float(x.sueldo)
+								sm    = float(x.sueldo)
 								dias1 = int(x.cant_dias)
 								dias2 = int(x.cant_horas)
 								monto = ((sm/dias1/int(7))*0.3)*dias2
@@ -1604,3 +1602,7 @@ class Movement_employee_payslip(osv.Model):
 	_defaults = {
 		'state':'1',
 	}
+
+def redondear(cadena):
+	salida = "%.2f" % round(cadena,2)
+	return salida

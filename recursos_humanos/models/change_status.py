@@ -149,6 +149,7 @@ class Onchange_status(osv.Model):
 			elif int(id_fill) == 5:
 				cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
 				cr.execute("UPDATE hr_movement_employee SET state=%s, status=%s WHERE cedula=%s;", (id_fill, id_fill, cedula))
+				cr.execute("UPDATE hr_ticket SET status=%s WHERE cedula=%s;", (id_fill, cedula))
 				self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
 			############################################################################################################################
 			#						    ESTATUS VACACIONES
@@ -183,7 +184,9 @@ class Onchange_status(osv.Model):
 				######################################################################################
 				search_obj_code = obj_dp.search(cr, uid, [('cedula','=',cedula),('nomina_admin','=',1)]) # Metodo para realizar la busqueda
 				datos_code = obj_dp.read(cr,uid,search_obj_code,context=context) # Lectura del objeto a consultar
-				
+				monto = 0.00
+				asignacion = 0.00
+				deduccion  = 0.00
 				for emp in datos_code: # Iteramos por la data del registro de asignaciones de nomina
 					ced = emp['cedula']
 					
@@ -201,6 +204,7 @@ class Onchange_status(osv.Model):
 
 					cr.execute("UPDATE hr_employee SET status=%s, fecha_egreso=%s WHERE cedula=%s;", (id_fill, date_now, cedula))
 					cr.execute("UPDATE hr_movement_employee SET state=%s, status=%s, monto_c=%s, monto_asignacion=%s, monto_deduccion=%s WHERE cedula=%s;", (id_fill, id_fill, monto, asignacion,deduccion, cedula))
+					cr.execute("UPDATE hr_ticket SET status=%s WHERE cedula=%s;", (id_fill, cedula))
 					self.write(cr, uid, ids, {'estado': '1'}, context=context) # Cambio de estado
 				######################################################################################
 
@@ -208,7 +212,7 @@ class Onchange_status(osv.Model):
 	
 	
 	_columns = {
-		'cedula_employee': fields.char(string = "Cédula", size = 9, required = True),
+		'cedula_employee': fields.char(string = "Cédula", size = 10, required = True),
 		'nom': fields.char(string = "Nombres", size = 256, required = False),
 		'charge': fields.many2one("hr.job", "Cargo", required = False),
 		#'status': fields.many2one("becados.status", "Estátus", required = True),

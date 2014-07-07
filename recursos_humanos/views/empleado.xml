@@ -98,7 +98,8 @@
 				</xpath>
 				<xpath expr="//field[@name='ano_antiguedad']" position="before">
 
-					<field name="prima_responsabilidad" class="oe_inline" attrs="{'invisible': [('categoria', '=', '1') ] }"/>
+					<field name="prima_responsabilidad" class="oe_inline" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+					<field name="tipo_recarga" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
 				</xpath>
 				<xpath expr="//field[@name='cedula']" position="before">
 
@@ -107,7 +108,7 @@
 
 				<xpath expr="//field[@name='tipo_nomina']" position="after">
 					<field name="nomina" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
-					<field name="class_personal" attrs="{'invisible': [('categoria', '!=', '2') ] }"/>
+					<field name="class_personal" attrs="{'invisible': [('categoria', '!=', '2') ] }" widget="selection"/>
 				</xpath>
 
 				<xpath expr="//field[@name='tiempo_servicio']" position="replace">
@@ -196,7 +197,7 @@
 				</xpath>
 				
 				<xpath expr="//field[@name='name']" position="replace">
-					<field name="name"/>
+					<field name="name" invisible="1"/>
 					<button name="get_employee_filter" string="Actualizar servicio" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
 					<button name="enlazar_nomina" string="Enlazar al sistema de nómina" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
 					<button name="emitir_constancia" string="Emitir Constancia" type="object" attrs="{'invisible': [('categoria', '!=', '2') ] }" icon="gtk-apply"/>
@@ -314,6 +315,7 @@
 			<field name="name">Recursos Humanos</field>
 			<field name="model">hr.employee</field>
 			<field name="inherit_id" ref="desarrollo_social.vista_becados_tree"/>
+			<field name="domain">[('categoria','ilike','2')]</field>
 			<field name="arch" type="xml">
 				<field name="category_ids" position="replace">
 					<field name="categoria"/>
@@ -333,7 +335,18 @@
 				<field name="correo" position="replace">
 					<field name="correo" invisible="1"/>
 				</field>
+				<field name="entidad_bancaria" position="replace">
+					<field name="entidad_bancaria" attrs="{'invisible': [('categoria', '=', '2') ] }"/>
+				</field>
+				<field name="eje" position="replace">
+					<field name="eje" attrs="{'invisible': [('categoria', '=', '2') ] }"/>
+				</field>
 			</field>
 		</record>
+
+		<!-- <menuitem name="Recursos Humanos" id="menu_rrhh"/>
+		<menuitem name="Recursos Humanos BVA" id="main_rrhh" parent="menu_rrhh" sequence="1"/>
+		<menuitem parent="main_rrhh" id="emp" action="accion_vista_empleado" name="Ficha Personal"/> -->
+
 	</data>
 </openerp>

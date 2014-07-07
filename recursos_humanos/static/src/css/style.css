@@ -47,3 +47,33 @@
 .caja{
 	border-color:white; !import
 }
+
+
+.oe_form_required input:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required select:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required textarea:not([disabled]):not([readonly]) {
+    background-color: #B8DFEF !important;
+}
+
+
+.openerp .oe_form .oe_form_required input:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required select:not([disabled]):not([readonly]), .openerp .oe_form .oe_form_required textarea:not([disabled]):not([readonly]) {
+    background-color: #B8DFEF !important;
+}
+
+
+.openerp .oe_secondary_submenu .oe_active {
+    background: none repeat scroll 0 0 #5F8DC1;
+    border-bottom: 1px solid #dedede;
+    border-top: 1px solid lightGray;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) inset, 0 -1px 3px rgba(40, 40, 40, 0.2) inset;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/*.openerp .oe_login .oe_login_bottom {
+    background-color: #8a0e0e;
+    background-image: linear-gradient(to bottom, #61b7d3, rgba(6, 96, 95, 0.56));
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    text-shadow: 0 1px 1px #999999;
+    top: 50%;
+}*/

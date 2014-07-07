@@ -49,7 +49,7 @@
         <record id="view_doc_tree" model="ir.ui.view">
             <field name="model">ir.documento</field>
             <field name="arch" type="xml">
-                <tree string="Attachments" colors="#0A9134:item=='todos';#F2081C:item=='asc';#000000:item=='desc';#0000FF:item=='fechas';" toolbar="1">
+                <tree string="Attachments" colors="#0A9134:item=='todos';#F2081C:item=='asc';#000000:item=='desc';#0000FF:item=='fechas';#FF5100:item=='foto';#BF6C28:item=='departamento'" toolbar="1">
                     <field name="name"/>
                     <field name="datas_fname"/>
                     <field name="type" invisible="1"/>

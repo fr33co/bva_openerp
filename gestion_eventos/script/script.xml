@@ -82,5 +82,139 @@
                 <field name="compania">1</field>
             </record>
 
+<!--===================================================================-->
+                        <!-- DOMAIN POR GERENCIA -->
+<!--===================================================================-->
+            <record id="gerencia_1" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Gerencia de Operaciones')]</field> 
+                <field name="user_id">20</field>
+                <field name="name">Gerencia de Operaciones</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="gerencia_2" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Unidad de Proyectos')]</field> 
+                <field name="user_id">55</field>
+                <field name="name">Unidad de Proyectos</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="gerencia_3" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Consultoría Jurídica')]</field>
+                <field name="user_id">57</field>
+                <field name="name">Consultoría Jurídica</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="gerencia_4" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Gerencia de Comunicación e Información')]</field>
+                <field name="user_id">58</field>
+                <field name="name">Gerencia de Comunicación e Información</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="gerencia_5" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Unidad de Tesorería')]</field>
+                <field name="user_id">59</field>
+                <field name="name">Unidad de Tesorería</field>
+                <field name="context">{}</field>
+            </record>
+            <record id="gerencia_6" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">['|',('institucion.name','=','Gerencia de Administración'),'|',('institucion.name','=','Unidad de Compras'),('institucion.name','=','Unidad de Contabilidad')]</field>
+                <field name="user_id">60</field>
+                <field name="name">Gerencias Adscrita</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="gerencia_7" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Bienes y Suministros')]</field>
+                <field name="user_id">61</field>
+                <field name="name">Bienes y Suministros</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="gerencia_8" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Servicios Generales')]</field>
+                <field name="user_id">62</field>
+                <field name="name">Servicios Generales</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="gerencia_9" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">['|',('institucion.name','=','Gerencia de Desarrollo Social'),('institucion.name','=','Oficina de Atención al Ciudadano')]</field>
+                <field name="user_id">66</field>
+                <field name="name">Gerencias Adscrita</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="gerencia_10" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">['|',('institucion.name','=','Gerencia de Recursos Humanos'),('institucion.name','=','Unidad de Salud y Seguridad Laboral')]</field>
+                <field name="user_id">67</field>
+                <field name="name">Gerencias Adscrita</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="gerencia_11" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Gerencia de Planificación, Presupuesto y Control de Gestión')]</field>
+                <field name="user_id">63</field>
+                <field name="name">Gerencia de Planificación, Presupuesto y Control de Gestión</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="gerencia_12" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Gerencia de Desarrollo y Aplicaciones')]</field>
+                <field name="user_id">68</field>
+                <field name="name">Gerencia de Desarrollo y Aplicaciones</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="gerencia_13" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Gerencia de Tecnología')]</field>
+                <field name="user_id">69</field>
+                <field name="name">Gerencia de Tecnología</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="gerencia_14" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Unidad de Prevención, Control y Pérdida')]</field>
+                <field name="user_id">64</field>
+                <field name="name">Unidad de Prevención, Control y Pérdida</field>
+                <field name="context">{}</field>
+            </record>
+
+            <record id="gerencia_15" model="ir.filters">
+                <field name="is_default">TRUE</field>
+                <field name="model_id">gestion.eventos</field>
+                <field name="domain">[('institucion.name','=','Gerencia General')]</field>
+                <field name="user_id">71</field>
+                <field name="name">Gerencia General</field>
+                <field name="context">{}</field>
+            </record>
+            
+<!--===================================================================-->
             </data>
     </openerp>

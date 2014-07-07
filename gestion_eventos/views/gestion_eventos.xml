@@ -6,7 +6,7 @@
 	    <field name="name">Gestión de Eventos</field>
 	    <field name="res_model">gestion.eventos</field>
 	    <field name="view_type">form</field>
-	    <field name="view_mode">kanban,tree,form,calendar,gantt</field>
+	    <field name="view_mode">tree,kanban,form,calendar,gantt</field>
 	</record>
 
 	<record id="view_gestion_eventos" model="ir.ui.view">
@@ -23,6 +23,7 @@
           		<button name="gestion_reprogramado" attrs="{'invisible':[('status','in', ('1','2','4','6'))]}" type="object" string="Reprogramado" confirm="¿Esta seguro que desea Reprogramar el Evento?"/>
           		<button name="gestion_atrasado" attrs="{'invisible':[('status','in', ('3','2','4','5','6'))]}" type="object" string="Atrasado" confirm="¿Esta seguro que desea atrasar el Evento?"/>
 			<button name="gestion_cancelar" attrs="{'invisible':[('status','in', ('2','6'))]}" type="object" string="Cancelado" confirm="¿Esta seguro que desea Cancelar el Evento?"/>
+			<button name="emitir_foto" type="object" string="Reporte" confirm="¿Esta seguro que desea Visualizar el Reporte?" invisible="1"/>
 
           		<field name="status" widget="statusbar" statusbar_colors='{"progress":"red"}' />
 			</header>
@@ -114,7 +115,8 @@
 				</td>
 				<td><b>Participantes</b></td>
 				<td>
-					<field name="participantes" placeholder="Participantes" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+					<field name="participantes" placeholder="Número de Participantes" attrs="{'readonly':[('status','in', ('2','6'))]}"/>
+					<font color="red"><b>Número de Participantes</b></font>
 				</td>
 			    </tr>
 			    <tr>
@@ -133,7 +135,6 @@
 					<field name="motivo" placeholder="Ingrese aqui el Motivo por el cual se suspende el Evento..."/>
 				</td>
 			    </tr>
-
 			    <tr>
 				<td colspan="8">
 				    <notebook colspan="4">
@@ -207,6 +208,33 @@
 						</tr>
 						
 					    </table>
+					</page>
+					<page string="Adjuntar Fotos">
+
+						<table style="text-align:center;width:350px;">
+							<tr style="text-align:center;">
+								<td class="separator">Foto (A)</td>
+								<td class="separator">Foto (B)</td>
+								<td class="separator">Foto (C)</td>
+								<td class="separator">Foto (D)</td>
+							</tr>
+							<tr style="text-align:center;">
+								<td>
+									<field name="foto_1" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								</td>
+								<td>
+									<field name="foto_2" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								</td>
+								<td>
+									<field name="foto_3" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								</td>
+								<td>
+									<field name="foto_4" widget="image" class="oe_left oe_avatar" nolabel="0"/>
+								</td>
+							</tr>
+						</table>
+
+						
 					</page>
 					
 				    </notebook>

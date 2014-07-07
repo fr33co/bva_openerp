@@ -5,6 +5,25 @@ import os
 from datetime import date
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
+import base64 #Necesario para la generación del .txt
+from xml.etree.ElementTree import Element, SubElement, ElementTree, tostring #Necesario para la generación del .xsl
+import xlwt
+import netsvc
+import tools
+import logging
+from xlwt import Workbook
+from xlwt import Font
+from xlwt import XFStyle
+from xlwt import Borders
+import os
+import commands
+import math
+#####################################################
+import re # Importar re para eliminar aceptos
+import unicodedata #Importar re para eliminar aceptos
+import httplib
+import fpdf_class # Importando la clase constructora del PDF
+
 
 class Empleado(osv.Model):
 	
@@ -31,7 +50,7 @@ class Empleado(osv.Model):
 				monto_total += int(x['mount_hijo'])
 	
 				if int(count_id) > 3: # Condicional para no permitir mas de tres registros al momento de carga de prima de hijos de carga familiar
-					raise osv.except_osv(_("Warning!"), _("Disculpe exedio el limite de registro en la carga de hijos, debe eliminar una carga para proceder el ingreso de monto..."))
+					raise osv.except_osv(_("Warning!"), _("Disculpe exedio el limite de registro en la carga de hijos, debe Ingresar manualmente el monto solo para tres (3) Hijos por Trabajador..."))
 	
 				else:
 					id_carga = x['id']
@@ -297,23 +316,34 @@ class Empleado(osv.Model):
 		data_emp = self.read(cr, uid, ids, context=context)[0] # Validacion para campos vacio
 		
 		for emp in browse_data:
-			cedula   = emp.cedula
-			cargo    = emp.job_id.id
-			tipo_emp = emp.class_personal.id
-			status   = emp.status
-			fecha_i  = emp.fecha_ingreso
-			nom      = emp.name_related.encode("UTF-8").decode('UTF-8')
-			sueldo   = emp.asignacion
-			servicio = emp.tiempo_servicio
-			depart   = emp.department_id.id
-			foto     = emp.image_medium
+			cedula    = emp.cedula
+			cargo     = emp.job_id.id
+			tipo_emp  = emp.class_personal.id
+			status    = emp.status
+			fecha_i   = emp.fecha_ingreso
+			nom       = emp.name_related.encode("UTF-8").decode('UTF-8')
+			sueldo    = emp.asignacion
+			servicio  = emp.tiempo_servicio
+			depart    = emp.department_id.id
+			foto      = emp.image_medium
+			tipo_pago = emp.tipo_recarga
+
+		asig     = self.pool.get('hr.asig.alimenacion')
+		asig_obj = asig.search(cr, uid, [])
+		data = asig.read(cr,uid,asig_obj,context=context)
+
+		for ali in data:
+			monto   = ali['monto']
+			ticket  = ali['ticket']
+			monto_p = ali['monto_p'] 
+			
 			
 		obj_dp = self.pool.get('hr.movement.employee')
 		search_obj = obj_dp.search(cr, uid, [('cedula','=',cedula)])
 		emp_data = obj_dp.read(cr,uid,search_obj,context=context)
 		
 		if emp_data:
-			raise osv.except_osv(_("Warning!"), _("Disculpe el empleado "+str(nom)+" ya se encuentra registrado en la asignación de nóminas..."))
+			raise osv.except_osv(_("Warning!"), _("Disculpe el empleado "+str(nom.encode('UTF-8'))+" ya se encuentra registrado en la asignación de nóminas..."))
 		else:
 			
 			if not data_emp['department_id']:
@@ -357,11 +387,178 @@ class Empleado(osv.Model):
 					'image':foto,
 					'tree_id':"3",
 				}, context=context)
-				
-				return id_att
+
+				# Proceso de Carga en Nomina de Alimentacion
+
+				id_att = self.pool.get("hr.ticket").create(cr, uid, {
+					'cedula': cedula,
+					'nombres': nom,
+					'fecha_ingreso': fecha_i,
+					'tipo_recarga': tipo_pago,
+					'class_personal': tipo_emp,
+					'monto': monto,
+					'ticket': ticket,
+					'monto_p': monto_p,
+				}, context=context)
+
+			return id_att
 			
 	def emitir_constancia(self, cr, uid, ids, context=None):
-		print "Emision de constancia"
+		# Instancia de la clase heredada L es horizontal y P es vertical
+
+		pdf=fpdf_class.Constancia(orientation='P',unit='mm',format='letter') #HORIENTACION DE LA PAGINA
+
+		pdf.set_author('Ing Jesús Laya')
+		pdf.alias_nb_pages() # LLAMADA DE PAGINACION
+		pdf.add_page() # AÑADE UNA NUEVA PAGINACION
+		pdf.set_font('Arial','B',14)
+		pdf.set_fill_color(157,188,201) # COLOR DE BOLDE DE LA CELDA
+		pdf.set_text_color(24,29,31) # COLOR DEL TEXTO
+
+		pdf.ln(5)
+		pdf.set_fill_color(255,255,255)
+		pdf.set_font('Arial','B',16)
+		pdf.cell(70,6,"",'',0,'C',1)
+		pdf.cell(100,6,"CONSTANCIA".decode("UTF-8"),'',1,'L',1)
+
+		pdf.ln(5)
+		pdf.set_font('Arial','',12)
+		pdf.set_y(50)
+		pdf.set_x(15)
+		pdf.multi_cell(190, 5, 'La A.C BIBLIOTECAS VIRTUALES DE ARAGUA, certifica por medio de la presente,que la persona cuyos datos se muestran a continuación trabaja en esta institución'.decode("UTF-8"),'', 0,  'J', 0)
+		pdf.ln(10)
+
+		rrhh          = self.pool.get('hr.department')
+		gerentes      = rrhh.search(cr, uid, [('name','=','Gerencia de Recursos Humanos')])
+		datos         = rrhh.read(cr,uid,gerentes,context=context)
+		
+		for gen in datos:
+
+			g = gen['gerente'][1]
+			
+
+		for emp in self.browse(cr, uid, ids, context=None):
+			if str(emp.segundo_nombre) == "False":
+				emp.segundo_nombre = ""
+			else:
+				emp.segundo_nombre
+			if str(emp.segundo_apellido) == "False":
+				emp.segundo_apellido = ""
+			else:
+				emp.segundo_apellido
+
+			nom       = emp.name_related
+			nombres   = aceptar(emp.primer_nombre)+" "+aceptar(emp.segundo_nombre)
+			apellidos = aceptar(emp.primer_apellido)+" "+aceptar(emp.segundo_apellido)
+			cedula    = emp.cedula
+			fecha     = format_fecha(emp.fecha_ingreso)
+			cargo     = emp.job_id.name
+			unidad    = emp.department_id.name
+			mensual   = redondear(emp.asignacion)
+
+			ticket      = self.pool.get('hr.ticket') # Objeto hr_employee (Empleado)
+		
+			datos       = ticket.search(cr, uid, [('cedula','=',cedula)], context=None)
+			data_ticket = ticket.read(cr,uid,datos,context=context)
+
+			for datas in data_ticket:
+				monto_pagar = float(datas['monto_p'])
+
+		pdf.set_font('Arial','',10)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.cell(40,5,"Apellidos:",'',0,'L',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(40,5,apellidos,'',1,'L',1)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.set_font('Arial','',10)
+		pdf.cell(40,5,"Nombres:",'',0,'L',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(40,5,nombres,'',1,'L',1)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.set_font('Arial','',10)
+		pdf.cell(40,5,"Cédula de Identidad:".decode("UTF-8"),'',0,'L',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(40,5,cedula,'',1,'L',1)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.set_font('Arial','',10)
+		pdf.cell(40,5,"Fecha de Igreso:",'',0,'L',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(40,5,fecha,'',1,'L',1)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.set_font('Arial','',10)
+		pdf.cell(40,5,"Cargo:",'',0,'L',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(40,5,cargo,'',1,'L',1)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.set_font('Arial','',10)
+		pdf.cell(40,5,"Unidad:",'',0,'L',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(40,5,unidad,'',1,'L',1)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.set_font('Arial','',10)
+		pdf.cell(40,5,"Ingreso mensual:",'',0,'L',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(20,5,str(mensual),'',1,'R',1)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.set_font('Arial','',10)
+		pdf.cell(40,5,"Otros Complementos:",'',0,'L',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(20,5,"740.00",'',1,'R',1)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.set_font('Arial','',10)
+		pdf.cell(40,5,"Bono de Alimentación".decode("UTF-8"),'',0,'L',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(20,5,str(redondear(monto_pagar)),'',1,'R',1)
+		pdf.cell(50,5,"",'',0,'C',1)
+		pdf.set_font('Arial','B',10)
+		pdf.cell(40,5,"Total Ingresos:",'',0,'L',1)
+		pdf.cell(20,5,"6,845.00",'',1,'R',1)
+		pdf.ln(5)
+
+		dia = time.strftime('%d')
+		mes = time.strftime('%B')
+		ano = time.strftime('%Y')
+
+
+		pdf.set_font('Arial','',12)
+		pdf.cell(5,6,"",'',0,'L',1)
+		pdf.multi_cell(180, 5, 'Constancia que se expide sin tachadura y sin enmienda en Maracay Edo. Aragua a los '+str(dia)+' dias del mes '+str(mes.capitalize())+' del '+str(ano)+''.decode("UTF-8"),'', 0,  'J', 0)
+		pdf.set_y(155)
+		pdf.set_x(15)
+		pdf.cell(40,5,"Atentamente",'',0,'L',1)
+		pdf.ln(5)
+		pdf.set_y(180)
+		pdf.set_x(80)
+		pdf.cell(40,5,aceptar(g),'',0,'C',1)
+		pdf.ln(5)
+		pdf.set_x(80)
+		pdf.cell(40,5,"Gerente de Recursos Humanos",'',0,'C',1)
+		pdf.ln(5)
+		pdf.set_x(80)
+		pdf.cell(40,5,"AC. Bibliotecas Virtuales de Aragua",'',0,'C',1)
+		#####################################################################
+		dia = time.strftime('%d')
+		mes = time.strftime('%B')
+		anyo = time.strftime('%Y')
+		fecha = dia+" de "+mes+" "+anyo
+		
+		ruta = "openerp/addons/recursos_humanos/ADMON/nomina/"
+
+		title = 'CONSTANCIA ('+nom+') '+fecha.upper()+'.pdf'
+		pdf.output(''+ruta+''+title,'F') # Salida del documento
+		open_document = open(''+ruta+''+title) # Apertura del documento
+		#########################################################################
+		
+		
+		#Guardamos el archivo Constancia pdf en ir.attachment.employee
+		self.pool.get('ir.attachment.employee').create(cr, uid, {
+			'name': title,
+			'res_name': title,
+			'datas': base64.encodestring(open_document.read()),
+			'datas_fname': title,
+			'res_model': 'hr.employee (Empleado)',
+			'description': "Pre-nomina "+title,
+			}, context=context)
 	
 	_columns = {
 		'ciudad' : fields.many2one("res.country.city", "Ciudad", required = True, select="0"),
@@ -378,6 +575,7 @@ class Empleado(osv.Model):
 		'marital' : fields.selection((('1','Soltero'),('2','Casado'),('3','Comcubinato'),('4','Unión de hechos estables')), "Estado civil", required=False),
 		'grado' : fields.many2one("hr.config.asignacion", "Grado de intrucción", required = False),
 		'nacimiento' : fields.char(string="Lugar de Nacimiento", size = 256, required=False),
+		'tipo_recarga': fields.selection((('1','Targeta Electrónica'),('2','Pedido de Tickeras')), "Recarga Alimentación", required=True),
 	}
 	#################################################################
 	
@@ -391,4 +589,18 @@ class Empleado(osv.Model):
 		'prima_responsabilidad': '2',
 		'nomina': _nomina,
 		'grado_instruccion': 1,
-	} 
+		'tipo_recarga' : '1',
+	}
+
+def aceptar(cadena):
+	result = cadena.encode('UTF-8').decode('UTF-8') # INSTITUCION
+	return result
+
+def format_fecha(fecha):
+	date = fecha.split("-")
+	nueva_fecha = date[2]+"/"+date[1]+"/"+date[0]
+	return nueva_fecha
+
+def redondear(cadena):
+	salida = "%.2f" % round(cadena,2)
+	return salida

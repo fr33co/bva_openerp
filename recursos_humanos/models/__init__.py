@@ -24,3 +24,5 @@ import asignacion_nomina_vacaciones # Importacion del sub modulo asignacion de n
 import nomina
 import configuracion_asignacion
 import propietario
+import hr_ticket # Nomina de cesta Ticket
+import hr_asig_alimentacion # Asignacion / Alimentacion

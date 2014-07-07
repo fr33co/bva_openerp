@@ -17,19 +17,29 @@
 		
 		<field name="arch" type="xml">
 		    <form string="Nómina de empleados" version="7.0">
-			<header>
-			    <button name="close_payslip_run" type="object" string="Cerrar Pre nómina" states="draft" class="oe_highlight" confirm="¿Esta seguro que desea cerrar la nómina?" icon="gtk-apply"/>
-			    <button string="Borrador" name="draft_payslip_run" type="object" states="close" />
-			    <!--Boton para generar el diskette al banco-->
-			    <button name="generate_txt_slip" type="object" string="Diskette al Banco" confirm="¿Desea generar el TXT de todos los empleados, correspondientes a la nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
-			    <button name="generate_xsl_slip" type="object" string="Resumen de Conceptos por Banco" confirm="¿Desea generar el XSL de todos los empleados, correspondientes a la nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
-			    <!--Boton para crear listado de Pre nomina-->
-			    <button name="generate_pre_slip" type="object" string="Pre-nómina"  confirm="¿Desea generar el listado de la pre nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'draft') ] }" class="oe_highlight"/>
-			    <!--Boton para generar la nomina-->
-			    <button name="generate_pre_slip" type="object" string="Resumen de Nómina"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
-			    <button name="generate_pre_slip" type="object" string="Detallado por Banco"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
-			    <button name="generate_pre_slip" type="object" string="Resumen por Personal"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
-			    <field name="state" widget="statusbar"/>
+				<header>
+				<field name="state" widget="statusbar"/>
+				<div attrs="{'invisible':[('type_slip','in', (1,2,3,4))]}">
+				<button name="close_payslip_run" type="object" string="Cerrar Pre nómina" class="oe_highlight" confirm="¿Esta seguro que desea cerrar la nómina?" icon="gtk-apply" states="draft"/>
+				<button name="generar_alimentacion" type="object" string="Generar Nómina de Alimentación" class="oe_highlight" confirm="¿Esta seguro que desea Generar la Nómina de  Alimentación?" icon="gtk-apply" states="close"/>
+				<button string="Modificar" name="draft_payslip_run" type="object" states="close" />
+				</div>
+				
+				<div attrs="{'invisible':[('type_slip','in', (5))]}">
+				    <button name="close_payslip_run" type="object" string="Cerrar Pre nómina" states="draft" class="oe_highlight" confirm="¿Esta seguro que desea cerrar la nómina?" icon="gtk-apply"/>
+				    
+				    <!--Boton para generar el diskette al banco-->
+				    <button name="generate_txt_slip" type="object" string="Diskette al Banco" confirm="¿Desea generar el TXT de todos los empleados, correspondientes a la nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
+				    <button name="generate_xsl_slip" type="object" string="Resumen de Conceptos por Banco" confirm="¿Desea generar el XSL de todos los empleados, correspondientes a la nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
+				    <!--Boton para crear listado de Pre nomina-->
+				    <button name="generate_pre_slip" type="object" string="Pre-nómina"  confirm="¿Desea generar el listado de la pre nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'draft') ] }" class="oe_highlight"/>
+				    <!--Boton para generar la nomina-->
+				    <button name="generate_pre_slip" type="object" string="Resumen de Nómina"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
+				    <button name="generate_pre_slip" type="object" string="Detallado por Banco"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
+				    <button name="generate_pre_slip" type="object" string="Resumen por Personal"  confirm="¿Desea generar el listado de la Nómina?" icon="gtk-apply" attrs="{'invisible': [('state', '!=', 'close') ] }" class="oe_highlight"/>
+				    <button string="Modificar" name="draft_payslip_run" type="object" states="close" />
+				</div>
+				
 			</header>
 			<div class="oe_form_sheetbg">
 			<center>
@@ -60,17 +70,17 @@
 			    <tr>
 				<td><b>Tipo de nómina</b></td>
 				<td>
-				    <field name="type_slip"/>
+				    <field name="type_slip" widget="selection"/>
 				</td>
 				<td><b>Clasificación</b></td>
 				<td>
-				    <field name="class_personal"/>
+				    <field name="class_personal" widget="selection"/>
 				</td>
 			    </tr>
 			    <tr>
 				<td colspan="4">
 				    <notebook colspan="4">
-					<page string="Empleado de la nómina">
+					<page string="Empleado de la nómina" attrs="{'invisible':[('type_slip','in', (5))]}">
 					    <div class="div_scroll">
 					    <field name="slip_ids" nolabel="1" mode="tree" domain= "[('emp','=',class_personal),('nomina_admin','=',type_slip),('accion','=','1')]"/>
 					    </div>
@@ -93,9 +103,11 @@
 					    </table>
 					    </div>
 					</page>
-					<!--<page string="Archivos adjuntos">
-					<field name="archivos"/> -->
-					<!--</page>-->
+					<page string="Nómina / Alimentación" attrs="{'invisible':[('type_slip','in', (1,2,3,4))]}">
+						<div class="div_scroll">
+					    <field name="alim_ids" nolabel="1" mode="tree" domain= "[('class_personal','=',class_personal),('status','=',1)]"/>
+					    </div>
+					</page>
 				</notebook>
 				</td>
 			    </tr>

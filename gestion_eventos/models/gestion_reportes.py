@@ -36,7 +36,7 @@ import pdf_class # Se importa la Clase constructora del Documento PDF
 
 from openerp.osv import osv, fields
 
-class Gestion_reportes(osv.Model):
+class Gestion_reportes(osv.osv):
 	_name="gestion.reportes"
 
 	_order = 'cantidad'
@@ -57,11 +57,11 @@ class Gestion_reportes(osv.Model):
 
 		search_ini = obj_dp.search(cr, uid, [('fecha_inicio','=',argument_search)])
 
-		fecha_ini = obj_dp.read(cr,uid,search_ini,context=context)
+		fecha_ini  = obj_dp.read(cr,uid,search_ini,context=context)
 
 		search_fin = obj_dp.search(cr, uid, [('fecha_fin','=',argument_search)])
 
-		fecha_fin = obj_dp.read(cr,uid,search_fin,context=context)
+		fecha_fin  = obj_dp.read(cr,uid,search_fin,context=context)
 		#=========================================================================
 		
 		if str(item) == "1":
@@ -91,6 +91,36 @@ class Gestion_reportes(osv.Model):
 
 		return {'value' : values,'warning' : mensaje}
 
+	def search_dep(self, cr, uid, ids, argument_search,item, context=None): # Proceso de busqueda de un manager(Gerente)
+
+		values = {}
+		mensaje = {}
+		
+		if not argument_search:
+			
+			return values
+		obj_dp = self.pool.get('gestion.eventos')
+		
+		#======================== Busqueda por código ============================
+		dep        = obj_dp.search(cr, uid, [('institucion','=',argument_search)])
+
+		depart     = obj_dp.read(cr,uid,dep,context=context)
+		#=========================================================================
+		if str(item) == "3":
+
+			if not depart:
+				mensaje = {
+						'title'   : "Busqueda por Departamento",
+						'message' : "No existen registros para este Departamento, intente de nuevo...",
+				}
+
+				values.update({
+					
+					'institucion' : None,
+					})
+
+		return {'value' : values,'warning' : mensaje}
+
 	#################################################################
 	# METODO PARA GERAR LOS DIFERENTES REPORTES DE GESTION DE EVENTOS
 	#################################################################
@@ -106,7 +136,7 @@ class Gestion_reportes(osv.Model):
 			fec_inicio = gestion.fecha_inicio # CAPTURA DE FECHA DE INICIO DEL EVENTO
 			fec_fin    = gestion.fecha_fin # CAPTURA DE FECHA DE FIN DEL EVENTO
 			user       = gestion.user.login # SE CAPTURA EL USUARIO LOGEADO
-			
+			ins        = gestion.institucion.id
 
 		if str(mostrar) == "todos": # CONDICIONAL PARA TODOS LOS REGISTROS
 			cabezera = "Detallado de Eventos"
@@ -139,7 +169,16 @@ class Gestion_reportes(osv.Model):
 				raise osv.except_osv(_("Warning!"), _("Disculpe debe ingresar la cantidad de Actividades a mostrar..."))
 			else:
 				cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion,g.hora_inicio,g.hora_fin,g.inicio,g.fin,g.fecha_inicio,g.fecha_fin FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id ORDER BY status '+str(mostrar)+' LIMIT '+str(cantidad)+'')
-		
+		elif str(mostrar) == "departamento": # CONDICIONAL PARA TODOS LOS REGISTROS
+			cabezera = "Detallado Por Departamento"
+			item     = "departamento"
+			if not campo['institucion']:
+				raise osv.except_osv(_("Warning!"), _("Disculpe debe seleccionar el Departamento..."))
+			else:
+				cr.execute('SELECT ge.name, mun.name, par.name, g.create_date, g.actividad,g.participantes,g.responsable,g.status,g.direccion,g.hora_inicio,g.hora_fin,g.inicio,g.fin,g.fecha_inicio,g.fecha_fin FROM gestion_eventos AS g ,gestion_inst_gerencia AS ge, res_country_municipality AS mun, res_country_parish AS par WHERE g.institucion=ge.id AND g.municipio=mun.id AND g.parroquia=par.id AND institucion='"'"+str(ins)+"'"'')
+				
+				# print "PROCESO DE DATOS: "+str(cr.fetchall())
+
 		pdf = pdf_class.Detallado(orientation='L',unit='mm',format='letter') #HORIENTACION DE LA PAGINA
 		pdf.set_author('ING JESUS LAYA')
 		pdf.alias_nb_pages() # LLAMADA DE PAGINACION
@@ -390,10 +429,11 @@ class Gestion_reportes(osv.Model):
 	_columns = {
 
 		'cantidad': fields.char(string="Cantidad", required = False),
-		'asc_desc' : fields.selection([('todos','Todos'),('asc','Asendente'),('desc','Decendente'),('fechas','Fechas')], string="Mostrar en Forma", required=True),
+		'asc_desc' : fields.selection([('todos','Todos'),('asc','Asendente'),('desc','Decendente'),('fechas','Fechas'),('departamento','Departamento')], string="Mostrar en Forma", required=True),
 		'user': fields.many2one('res.users', 'Registrado por:', readonly=True), # Usuario logeado
 		'fecha_inicio' : fields.date(string="Fecha Inicio", required=False),
 		'fecha_fin' : fields.date(string="Fecha Fin", required=False),
+		'institucion' : fields.many2one("gestion.inst.gerencia", "Institución / Gerencia", required = False),
 	}
 
 	_defaults = {

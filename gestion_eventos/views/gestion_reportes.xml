@@ -44,6 +44,17 @@
                                 </tr>
                             </table>
                             </page>
+                            
+                            <page string="Busqueda por Departamento" attrs="{'invisible': [('asc_desc', '!=', 'departamento') ] }">
+                                <table>
+                                <!-- BUSQUEDA POR INSTITUCION -->
+                                
+                                <tr>
+                                    <td><b>Institución: </b></td>
+                                    <td><field name="institucion" widget="selection" on_change="search_dep(institucion,'3')"/></td>
+                                </tr>
+                            </table>
+                            </page>
                         </notebook>
                         <table>
                         <tr>

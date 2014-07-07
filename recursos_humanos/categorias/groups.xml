@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
     <openerp>
         <data>
-            <record id="res_groups_rrhh_responsable" model="res.groups">
-                <field name="name">Recursos Humanos BVA responsable</field>
-            </record>
-            
-            <record id="res_groups_rrhh_limitado" model="res.groups">
-                <field name="name">Recursos Humanos BVA Limitado</field>
+            <record id="res_groups_rrhh" model="res.groups">
+                <field name="name">Recursos Humanos / BVA</field>
             </record>
         </data>
     </openerp>

@@ -100,7 +100,7 @@
 			<menuitem name="Documentos de la nómina" id="filter_document" parent="hr_payroll.menu_hr_root_payroll"/>
         	<menuitem parent="filter_document" id="sub_menu_document" action="action_document_file" name="Documentos"/>
 -->
-		<menuitem parent="recursos_humanos_main" id="empleado_document" action="action_document_file" name="Documentos de la nómina" icon="terp-partner" sequence="3"/>
+		<menuitem parent="recursos_humanos_main" id="empleado_document" action="action_document_file" name="Documentos de la nómina" icon="terp-partner" sequence="4"/>
         
     </data>
 </openerp>
